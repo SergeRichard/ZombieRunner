@@ -2,37 +2,26 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public Helicopter Helicopter;
-	public Transform PlayerSpawnPoints;
-	public AudioClip WhatHappened;
 
-	private AudioSource innerVoice;
+	public Transform PlayerSpawnPoints;
+
 	private bool ReSpawn = false;
-	private bool lastToggle = false;
+	private bool lastRespawnToggle = false;
 	private Transform[] SpawnPoints;
 
 	// Use this for initialization
 	void Start () {
 		SpawnPoints = PlayerSpawnPoints.GetComponentsInChildren<Transform> ();
 
-		AudioSource[] audioSources = GetComponents<AudioSource> ();
-		foreach (AudioSource audioSource in audioSources) {
-			if (audioSource.priority == 1) {
-				innerVoice = audioSource;
-			}
-		}
-
-		innerVoice.clip = WhatHappened;
-		innerVoice.Play ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (lastToggle != ReSpawn) {
+		if (lastRespawnToggle != ReSpawn) {
 			Respawn ();
 			ReSpawn = false;
 		} else {
-			lastToggle = ReSpawn;
+			lastRespawnToggle = ReSpawn;
 		}
 	}
 	private void Respawn() {
@@ -42,7 +31,9 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnFindClearArea() {
-		Debug.Log ("Found clear area in player");
-		Helicopter.Call ();
+		Invoke ("DropFlare", 3f);
+	}
+	void DropFlare() {
+
 	}
 }
