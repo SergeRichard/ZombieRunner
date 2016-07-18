@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	public Transform PlayerSpawnPoints;
+	public GameObject LandingAreaPrefab;
 
 	private bool ReSpawn = false;
 	private bool lastRespawnToggle = false;
@@ -34,6 +35,6 @@ public class Player : MonoBehaviour {
 		Invoke ("DropFlare", 3f);
 	}
 	void DropFlare() {
-
+		Instantiate (LandingAreaPrefab, transform.position, transform.rotation);
 	}
 }
